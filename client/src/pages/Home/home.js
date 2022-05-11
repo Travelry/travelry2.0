@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Map from "./Map";
 import AutoSearch from "./AutoSearch";
 import 'react-date-range/dist/styles.css'; // main style file
@@ -26,6 +26,7 @@ export default function Home() {
   const [tripTitle, setTripTitle] = useState("Trip 1");
   const [editingTitle, setEditingTitle] = useState(false);
   const [hoveringTitle, sethHoveringTitle] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const [state, setState] = useState([
     {
@@ -45,21 +46,25 @@ export default function Home() {
         setSelectingDates(false);
       }, 100);
     }
+    setSaved(false);
   }
 
   async function saveTrip() {
     if (isAuthenticated) {
-      try {
-        if (tripId) {
-          const res = await axios.post("/trip/save", { id: tripId, trip: { title: tripTitle, markers, startDate, endDate } });
-          console.log(res)
-        } else {
-          const res = await axios.post("/trip/new", { trip: { title: tripTitle, markers, startDate, endDate } });
-          console.log(res)
-          setTripId(res.data.trip._id)
+      if (!saved) {
+        setSaved(true);
+        try {
+          if (tripId) {
+            const res = await axios.post("/trip/save", { id: tripId, trip: { title: tripTitle, markers, startDate, endDate } });
+            console.log(res)
+          } else {
+            const res = await axios.post("/trip/new", { trip: { title: tripTitle, markers, startDate, endDate } });
+            console.log(res)
+            setTripId(res.data.trip._id)
+          }
+        } catch (error) {
+          console.log(error)
         }
-      } catch (error) {
-        console.log(error)
       }
     } else {
       setSigningUp(true);
@@ -76,8 +81,20 @@ export default function Home() {
     setLoggingIn(false)
   }
 
+  function changeTitle(e) {
+    setTripTitle(e.target.value);
+    setSaved(false);
+  }
+
+  useEffect(() => {
+    setSaved(false);
+  }, [markers]);
+
   return (
     <div>
+      <div id="headerHome">
+
+      </div>
       {loggingIn ? <Login switch={() => switchToSignup()} cancel={() => setLoggingIn(false)} /> : null}
       {signingUp ? <SignUp switch={() => switchToLogin()} cancel={() => setSigningUp(false)} /> : null}
       <div id="sidebar">
@@ -87,8 +104,8 @@ export default function Home() {
           </div>
           <div id="headerFlex">
             <div id="tripHeader">
-              <div id="tripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? {backgroundColor: "#F3F4F5"} : {backgroundColor: "white"} }>
-                <input value={tripTitle} onChange={(e) => setTripTitle(e.target.value)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
+              <div id="tripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? { backgroundColor: "#F3F4F5" } : { backgroundColor: "white" }}>
+                <input value={tripTitle} onChange={(e) => changeTitle(e)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
               </div>
               <div id="datesFlex" onClick={() => setSelectingDates(!selectingDates)}>
                 <svg width="24" height="24" fill="none" viewBox="0 0 24 24" id="calendarIcon">
@@ -138,7 +155,12 @@ export default function Home() {
             </div>
           </div>
           <div id="saveBtn" onClick={() => saveTrip()}>
-            save trip
+            {saved ?
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+              </svg>
+              : "save trip"
+            }
           </div>
         </div>
       </div>

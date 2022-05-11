@@ -16,6 +16,7 @@ export default function Map() {
     const containerStyle = {
         width: '60vw',
         height: '100vh',
+
     };
 
     const defaultMapOptions = {
