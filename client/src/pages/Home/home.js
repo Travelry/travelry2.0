@@ -23,7 +23,9 @@ export default function Home() {
   const [endDate, setEndDate] = useState(new Date());
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
-  const [tripTitle, setTripTitle] = useState("Trip to NiggerLand");
+  const [tripTitle, setTripTitle] = useState("Trip 1");
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [hoveringTitle, sethHoveringTitle] = useState(false);
 
   const [state, setState] = useState([
     {
@@ -85,8 +87,8 @@ export default function Home() {
           </div>
           <div id="headerFlex">
             <div id="tripHeader">
-              <div id="tripTitle">
-                Trip to Alaska
+              <div id="tripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? {backgroundColor: "#F3F4F5"} : {backgroundColor: "white"} }>
+                <input value={tripTitle} onChange={(e) => setTripTitle(e.target.value)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
               </div>
               <div id="datesFlex" onClick={() => setSelectingDates(!selectingDates)}>
                 <svg width="24" height="24" fill="none" viewBox="0 0 24 24" id="calendarIcon">
