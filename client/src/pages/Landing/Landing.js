@@ -13,8 +13,10 @@ export default function Landing() {
                         <div id="landingTitle">
                             xplor
                         </div>
-                        <div id="openApp" onClick={() => history.push("/home")}>
-                            open app
+                        <div id="openAppFlex">
+                            <div id="openApp" onClick={() => history.push("/home")}>
+                                open app
+                            </div>
                         </div>
                     </div>
                     <div id="iconRow">

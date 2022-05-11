@@ -18,6 +18,12 @@
     margin-bottom: 20px;
 }
 
+#openAppFlex {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
 #openApp {
     width: 160px;
     height: 45px;

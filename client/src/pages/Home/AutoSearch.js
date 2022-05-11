@@ -50,12 +50,6 @@ function AutoSearch() {
             setMarkers(markers => [...markers, { lat, lng, address: addressObject.formatted_address }]);
         }
         setQuery("");
-        // const geocoder = new window.google.maps.Geocoder();
-        // geocoder
-        // .geocode({ placeId: addressObject.place_id })
-        // .then(({ results }) => {
-        //     console.log(results)
-        // })
     }
 
     useEffect(() => {

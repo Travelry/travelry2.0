@@ -7,6 +7,7 @@ import { DateRange } from 'react-date-range';
 import moment from "moment";
 import { MapContext } from "../../context/MapContext";
 import Destination from "./Destination";
+import SignUp from "../../components/SignUp";
 import "./homeStyle.css";
 import arrow from "../../assets/share.png";
 
@@ -16,6 +17,7 @@ export default function Home() {
   const [selectingDates, setSelectingDates] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [connecting, setConnecting] = useState(true);
 
   const [state, setState] = useState([
     {
@@ -37,8 +39,13 @@ export default function Home() {
     }
   }
 
+  async function saveTrip() {
+    setConnecting(true);
+  }
+
   return (
     <div>
+      {connecting ? <SignUp cancel={() => setConnecting(false)}/> : null}
       <div id="sidebar">
         <div id="sideBody">
           <div id="tripHero">
@@ -93,10 +100,10 @@ export default function Home() {
                   key={marker.address}
                   address={marker.address}
                 />
-              }) : <div> add a destination to update your itinerary </div>}
+              }) : <div id="noDestination"> add a destination to update your itinerary </div>}
             </div>
           </div>
-          <div id="saveBtn">
+          <div id="saveBtn" onClick={() => saveTrip()}>
             save trip
           </div>
         </div>

@@ -25,11 +25,6 @@ export default function Map() {
         minZoom: 2
     };
 
-    // const { isLoaded } = useJsApiLoader({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: "AIzaSyDbC-YOQBw5zyWM2d-SROyIDOzlfmpm5VQ"
-    // });
-
     useEffect(() => {
         if (scriptLoaded) {
             setLoaded(true);
