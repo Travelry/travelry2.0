@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AuthService from '../services/AuthService';
-import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 import "./styles/loginStyle.css";
 
 export default function Login(props) {
-    const [user, setUser] = useState({ username: "", password: "" });
+    const { setUser, setIsAuthenticated} = useContext(AuthContext);
+    const [user, setTempUser] = useState({ username: "", password: "" });
     const [typing1, setTyping1] = useState(false);
     const [typing2, setTyping2] = useState(false);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
     const onChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setTempUser({ ...user, [e.target.name]: e.target.value });
         setMessage("");
     }
 
     const resetForm = () => {
-        setUser({ username: "", password: ""});
+        setTempUser({ username: "", password: ""});
     }
 
     async function login() {
@@ -28,6 +29,8 @@ export default function Login(props) {
             AuthService.login(user).then(data => {
                 const { isAuthenticated, user } = data;
                 if (isAuthenticated) {
+                    setUser(user);
+                    setIsAuthenticated(true);
                     setTimeout(() => {
                         props.cancel();
                     }, 1500);

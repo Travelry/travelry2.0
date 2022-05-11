@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AuthService from '../services/AuthService';
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "./styles/signUpStyle.css";
 
 export default function SignUp(props) {
-    const [user, setUser] = useState({ username: "", password: "", password2: "" });
+    const { setUser, setIsAuthenticated} = useContext(AuthContext);
+    const [user, setTempUser] = useState({ username: "", password: "", password2: "" });
     const [typing1, setTyping1] = useState(false);
     const [typing2, setTyping2] = useState(false);
     const [typing3, setTyping3] = useState(false);
@@ -12,12 +14,12 @@ export default function SignUp(props) {
     const [loading, setLoading] = useState(false);
 
     const onChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setTempUser({ ...user, [e.target.name]: e.target.value });
         setMessage("");
     }
 
     const resetForm = () => {
-        setUser({ username: "", password: "", password2: "" });
+        setTempUser({ username: "", password: "", password2: "" });
     }
 
     async function register() {
@@ -26,7 +28,7 @@ export default function SignUp(props) {
         }
         else if (user.password !== user.password2) {
             setMessage({ msgBody: "Passwords do not match", msgError: true });
-            setUser({ ...user, password: "", password2: "" });
+            setTempUser({ ...user, password: "", password2: "" });
         }
         else {
             setLoading(true);
@@ -36,6 +38,8 @@ export default function SignUp(props) {
                 AuthService.login(user).then(data => {
                     const { isAuthenticated, user } = data;
                     if (isAuthenticated) {
+                        setUser(user);
+                        setIsAuthenticated(true);
                         setTimeout(() => {
                             props.cancel();
                         }, 1500);

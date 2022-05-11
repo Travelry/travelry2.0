@@ -6,20 +6,24 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
 import moment from "moment";
 import { MapContext } from "../../context/MapContext";
+import { AuthContext } from "../../context/AuthContext";
 import Destination from "./Destination";
 import SignUp from "../../components/SignUp";
 import Login from "../../components/Login";
+import axios from "axios";
 import "./homeStyle.css";
 import arrow from "../../assets/share.png";
 
 export default function Home() {
-  const { scriptLoaded, markers, setScriptLoaded } = useContext(MapContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
+  const { scriptLoaded, markers, setScriptLoaded, tripId, setTripId } = useContext(MapContext);
   const [value, onChange] = useState([new Date(), new Date()]);
   const [selectingDates, setSelectingDates] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [signingUp, setSigningUp] = useState(true);
+  const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
+  const [tripTitle, setTripTitle] = useState("Trip to NiggerLand");
 
   const [state, setState] = useState([
     {
@@ -42,7 +46,22 @@ export default function Home() {
   }
 
   async function saveTrip() {
-    setSigningUp(true);
+    if (isAuthenticated) {
+      try {
+        if (tripId) {
+          const res = await axios.post("/trip/save", { id: tripId, trip: { title: tripTitle, markers, startDate, endDate } });
+          console.log(res)
+        } else {
+          const res = await axios.post("/trip/new", { trip: { title: tripTitle, markers, startDate, endDate } });
+          console.log(res)
+          setTripId(res.data.trip._id)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setSigningUp(true);
+    }
   }
 
   function switchToLogin() {
@@ -57,8 +76,8 @@ export default function Home() {
 
   return (
     <div>
-      {loggingIn ? <Login switch={() => switchToSignup()} cancel={() => setLoggingIn(false)}/> : null}
-      {signingUp ? <SignUp switch={() => switchToLogin()} cancel={() => setSigningUp(false)}/> : null}
+      {loggingIn ? <Login switch={() => switchToSignup()} cancel={() => setLoggingIn(false)} /> : null}
+      {signingUp ? <SignUp switch={() => switchToLogin()} cancel={() => setSigningUp(false)} /> : null}
       <div id="sidebar">
         <div id="sideBody">
           <div id="tripHero">

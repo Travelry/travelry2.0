@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import AuthService from '../../services/AuthService';
 import AuthMessage from './AuthMessage';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { AuthContext } from "../../context/AuthContext";
 
 // function Copyright() {
 //     return (
@@ -47,8 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = props => {
+    const { setUser, setIsAuthenticated} = useContext(AuthContext);
     const classes = useStyles();
-    const [user, setUser] = useState({ username: "", password: "", password2: "" });
+    const [user, setTempUser] = useState({ username: "", password: "", password2: "" });
     const [message, setMessage] = useState(null);
     let timerID = useRef(null);
 
@@ -59,11 +61,11 @@ const Register = props => {
     }, []);
 
     const onChange = e => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setTempUser({ ...user, [e.target.name]: e.target.value });
     }
 
     const resetForm = () => {
-        setUser({ username: "", password: "", password2: "" });
+        setTempUser({ username: "", password: "", password2: "" });
     }
 
     const onSubmit = e => {
@@ -73,7 +75,7 @@ const Register = props => {
         }
         else if (user.password !== user.password2) {
             setMessage({ msgBody: "Passwords do not match", msgError: true });
-            setUser({ ...user, password: "", password2: "" });
+            setTempUser({ ...user, password: "", password2: "" });
         }
         else {
             AuthService.register(user).then(data => {

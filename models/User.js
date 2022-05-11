@@ -9,7 +9,12 @@ const UserSchema = new mongoose.Schema({
     password : {
         type : String,
         required : true
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    trips: [{type : mongoose.Schema.Types.ObjectId, ref: 'Trip'}],
 });
 
 UserSchema.pre('save',function(next){
