@@ -30,6 +30,29 @@
     cursor: pointer;
 }
 
+.iconIndicator {
+    position: absolute;
+    right: 0px;
+    height: 40px;
+    border-right: solid 2px black;
+    display: none;
+}
+
+#discoverIndicator {
+    top:23px;
+    display: initial;
+}
+
+#createIndicator {
+    top:88px;
+    display: initial;
+}
+
+#profileIndicator {
+    top:151px;
+    display: initial;
+}
+
 #contentBody {
     width: 40%;
     height: 100%;
