@@ -1,8 +1,7 @@
 import React from 'react';
-import history from './history';
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
-import { Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import "./index.css";
 
 // Pages
@@ -11,19 +10,22 @@ import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/home";
 import Account from "./pages/Account/account";
+import Landing from './pages/Landing/Landing';
 
 
 function App() {
   return (
-    <Router history={history}>
+    <BrowserRouter>
       <Switch>
         <UnPrivateRoute path="/login" component={Login} />
         <UnPrivateRoute path="/register" component={Register} />
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Landing} />
+        <Route path="/home/:location" component={Home} />
+        <Route path="/home" component={Home} />
         <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 

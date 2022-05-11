@@ -1,51 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Marker } from "@react-google-maps/api";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { useHistory } from "react-router-dom";
+import { MapContext } from "../../context/MapContext";
 import "./mapStyle.css";
 
 export default function Map() {
-    const [center, setCenter] = useState({ lat: 21.178574, lng: 72.814149 });
-    const [zoom, setZoom] = useState(6);
+    const { scriptLoaded, markers, setScriptLoaded } = useContext(MapContext);
+    const [center, setCenter] = useState({ lat: 15.178574, lng: -20.814149 });
+    const [zoom, setZoom] = useState(2);
     const [map, setMap] = useState(null);
+    const [loaded, setLoaded] = useState(false);
+    const history = useHistory();
 
     const containerStyle = {
         width: '60vw',
         height: '100vh',
     };
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyDbC-YOQBw5zyWM2d-SROyIDOzlfmpm5VQ"
-    });
+    const defaultMapOptions = {
+        fullscreenControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        minZoom: 2
+    };
+
+    // const { isLoaded } = useJsApiLoader({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: "AIzaSyDbC-YOQBw5zyWM2d-SROyIDOzlfmpm5VQ"
+    // });
 
     useEffect(() => {
-        setMap(map)
-        return () => setMap(null);
-    }, [map]);
+        if (scriptLoaded) {
+            setLoaded(true);
+            if (!map) {
+                setMap(map)
+            }
+        }
+        return () => setScriptLoaded(false);
+    }, [scriptLoaded]);
 
-    function newPlace() {
-        setCenter({ lat: 40.0112183, lng: 80.52067570000001, });
+    useEffect(() => {
+        if (markers.length > 0) {
+            setCenter({ lat: markers[markers.length-1].lat, lng: markers[markers.length-1].lng, });
+            setZoom(5);
+        }
+    }, [markers]);
+
+    function newPlace(lat, lng) {
+        setCenter({ lat: lat, lng: lng, });
         setZoom(5);
+        history.push("/home/turkey");
     }
 
-    return isLoaded ? (
+    return loaded ? (
         <div id="mapContainer">
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
                 minZoom={4}
                 zoom={zoom}
+                options={defaultMapOptions}
             >
-                <Marker
-                    icon={{
-                        url: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Ethereum_logo_translucent.svg',
-                        anchor: new window.google.maps.Point(17, 46),
-                        scaledSize: new window.google.maps.Size(37, 37)
-                    }} onClick={() => newPlace()} position={{
-                        lat: 40.0112183,
-                        lng: 80.52067570000001,
-                    }} />
-                <></>
+                {markers.map(marker => {
+                    return <Marker
+                        key={marker.lat}
+                        onClick={() => newPlace(marker.lat, marker.lng)}
+                        position={{
+                            lat: marker.lat,
+                            lng: marker.lng,
+                        }}
+                    />
+                })}
+
             </GoogleMap>
         </div>
     ) : <></>

@@ -1,0 +1,21 @@
+#autoSearch {
+    width: 98%;
+    height: 40px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: solid 2px rgb(213, 213, 213);
+}
+
+#autoSearchInput {
+    width: 95%;
+    height: 80%;
+    border: none; 
+    outline: none;
+    margin-left: 10px;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+  
+}
