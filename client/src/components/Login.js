@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import AuthService from '../services/AuthService';
 import axios from "axios";
-import "./styles/signUpStyle.css";
+import "./styles/loginStyle.css";
 
-export default function SignUp(props) {
-    const [user, setUser] = useState({ username: "", password: "", password2: "" });
+export default function Login(props) {
+    const [user, setUser] = useState({ username: "", password: "" });
     const [typing1, setTyping1] = useState(false);
     const [typing2, setTyping2] = useState(false);
-    const [typing3, setTyping3] = useState(false);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -17,43 +16,27 @@ export default function SignUp(props) {
     }
 
     const resetForm = () => {
-        setUser({ username: "", password: "", password2: "" });
+        setUser({ username: "", password: ""});
     }
 
-    async function register() {
-        if (!user.username || !user.password || !user.password2) {
+    async function login() {
+        if (!user.username || !user.password) {
             setMessage({ msgBody: "Please fill out all fields", msgError: true });
-        }
-        else if (user.password !== user.password2) {
-            setMessage({ msgBody: "Passwords do not match", msgError: true });
-            setUser({ ...user, password: "", password2: "" });
         }
         else {
             setLoading(true);
-            const data = await axios.post("/user/register", { user });
-            const { message } = data.data
-            if (!message.msgError) {
-                AuthService.login(user).then(data => {
-                    const { isAuthenticated, user } = data;
-                    if (isAuthenticated) {
-                        setTimeout(() => {
-                            props.cancel();
-                        }, 1500);
-                    } else {
-                        setLoading(false);
-                        setMessage({ msgBody: "an error occurred", msgError: true });
-                        resetForm();
-                    }
-                });
-            } else if (message.errorType === "username") {
-                setLoading(false);
-                setMessage({ msgBody: "account already exists", msgError: true });
-                resetForm();
-            } else {
-                setLoading(false);
-                setMessage({ msgBody: "an error occurred", msgError: true });
-                resetForm();
-            }
+            AuthService.login(user).then(data => {
+                const { isAuthenticated, user } = data;
+                if (isAuthenticated) {
+                    setTimeout(() => {
+                        props.cancel();
+                    }, 1500);
+                } else {
+                    setLoading(false);
+                    setMessage({ msgBody: "an error occurred", msgError: true });
+                    resetForm();
+                }
+            });
         }
     }
 
@@ -72,7 +55,7 @@ export default function SignUp(props) {
                             Share your trip with friends.
                         </div>
                         <div id="loginSub">
-                            Sign up to save
+                            Login to save
                         </div>
                         <div className="loginInputBg" style={typing1 ? { borderColor: "#0099d6" } : { borderColor: "rgb(213, 213, 213)" }}>
                             <input
@@ -99,33 +82,20 @@ export default function SignUp(props) {
                                 type="password"
                             />
                         </div>
-                        <div className="loginInputBg" style={typing3 ? { borderColor: "#0099d6" } : { borderColor: "rgb(213, 213, 213)" }}>
-                            <input
-                                className="loginInput"
-                                placeholder="confirm password"
-                                name="password2"
-                                onBlur={() => setTyping3(false)}
-                                onFocus={() => setTyping3(true)}
-                                onSubmit={(e) => e.preventDefault()}
-                                value={user.password2}
-                                onChange={onChange}
-                                type="password"
-                            />
-                        </div>
                         {message ?
                             <div id="signUpMsg">
                                 *{message.msgBody}
                             </div>
                             : null}
                         <div id="switchToLogin">
-                            <div> have an account? </div>
+                            <div> don't have an account? </div>
                             <div id="switchLoginBtn" onClick={() => props.switch()}>
-                                login
+                                sign up
                             </div>
                         </div>
                     </div>
-                    <div id="signUpBtn" onClick={() => register()}>
-                        {loading ? <img id="spinnerGif" src="https://www.massage1.com/wp-content/plugins/bookerapi/images/loader.gif"></img> : "sign up"}
+                    <div id="signUpBtn" onClick={() => login()}>
+                        {loading ? <img id="spinnerGif" src="https://www.massage1.com/wp-content/plugins/bookerapi/images/loader.gif"></img> : "login"}
                     </div>
                 </div>
             </div>

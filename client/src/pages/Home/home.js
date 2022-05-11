@@ -8,6 +8,7 @@ import moment from "moment";
 import { MapContext } from "../../context/MapContext";
 import Destination from "./Destination";
 import SignUp from "../../components/SignUp";
+import Login from "../../components/Login";
 import "./homeStyle.css";
 import arrow from "../../assets/share.png";
 
@@ -17,7 +18,8 @@ export default function Home() {
   const [selectingDates, setSelectingDates] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [connecting, setConnecting] = useState(true);
+  const [signingUp, setSigningUp] = useState(true);
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const [state, setState] = useState([
     {
@@ -40,12 +42,23 @@ export default function Home() {
   }
 
   async function saveTrip() {
-    setConnecting(true);
+    setSigningUp(true);
+  }
+
+  function switchToLogin() {
+    setSigningUp(false)
+    setLoggingIn(true)
+  }
+
+  function switchToSignup() {
+    setSigningUp(true)
+    setLoggingIn(false)
   }
 
   return (
     <div>
-      {connecting ? <SignUp cancel={() => setConnecting(false)}/> : null}
+      {loggingIn ? <Login switch={() => switchToSignup()} cancel={() => setLoggingIn(false)}/> : null}
+      {signingUp ? <SignUp switch={() => switchToLogin()} cancel={() => setSigningUp(false)}/> : null}
       <div id="sidebar">
         <div id="sideBody">
           <div id="tripHero">
