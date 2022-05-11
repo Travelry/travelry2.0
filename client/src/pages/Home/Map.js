@@ -14,9 +14,9 @@ export default function Map() {
     const history = useHistory();
 
     const containerStyle = {
-        width: '60vw',
-        height: '100vh',
-
+        width: '100%',
+        height: '100%',
+        borderRadius: "18px"
     };
 
     const defaultMapOptions = {

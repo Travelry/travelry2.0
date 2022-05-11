@@ -1,8 +1,39 @@
-#sidebar {
-    width: 40vw;
-    height: 100%;
-    box-shadow: 0 8px 16px 12px rgba(0,0,0,0.2);
+#home {
+    display: flex;
+}
+
+#homeArea {
+    width: calc(100vw - 80px);
+    position: absolute;
+    left: 80px;
+    top: 80px;
+    background-color: #F3F4F5;
+}
+
+#sideBar {
+    width: 80px;
+    height: 100vh;
     position: fixed;
+    background-color: white;
+    z-index: 12;
+}
+
+#iconFlex2 {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.sideBarIcon {
+    margin-bottom: 40px;
+    display: block;
+    cursor: pointer;
+}
+
+#contentBody {
+    width: 40%;
+    height: 100%;
+    /* box-shadow: 0 8px 16px 12px rgba(0,0,0,0.2); */
     left: 0px;
     z-index: 5;
     background-color: #F3F4F5;
@@ -11,17 +42,7 @@
     scrollbar-width: none;  
 }
 
-#sidebar::-webkit-scrollbar {
-    display: none;
-}
-
-#headerHome {
-    width: 100vw;
-    height: 60px;
-    background-color: white;
-    position: fixed;
-    top: 0;
-    z-index: 12;
+#contentBody::-webkit-scrollbar {
     display: none;
 }
 
@@ -33,7 +54,7 @@
 #saveBtn {
     position: fixed;
     bottom: 20px;
-    left: calc(20vw - 80px);
+    left: calc(20vw - 20px);
     width: 160px;
     height: 45px;
     background-color: #f33f3f;
@@ -52,30 +73,14 @@
 
 }
 
-#tripHero {
-    width: 100%;
-    height: 200px;
-    background: rgb(1,170,214);
-    background: linear-gradient(90deg, rgba(1,170,214,1) 35%, rgba(0,212,255,1) 100%);
-}
-
-#heroImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-}
-
 #headerFlex {
     width: 100%;
-    position: absolute;
-    top: 120px;
     display: flex;
     justify-content: center;
 }
 
 #tripHeader {
-    width: 80%;
+    width: 85%;
     height: 140px;
     background-color: white;
     border-radius: 8px;
@@ -158,14 +163,14 @@
 }
 
 .tripInfoFlex {
-    margin-top: 80px;
+    margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .tripInfo {
-    width: 80%;
+    width: 85%;
 }
 
 #tripNotes {
@@ -188,4 +193,72 @@
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     color: gray;
+}
+
+#headerHome {
+    width: calc(100vw - 80px);
+    left: 80px;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    background-color: #F3F4F5;
+}
+
+#headerLogo {
+    margin-left: 40px;
+}
+
+#headerTitle {
+    margin-left: 18px;
+    font-family: 'Righteous', cursive;
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: #01bbff;
+}
+
+#userBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#loginHeader {
+    width: 120px;
+    height: 40px;
+    background-color: #f33f3f;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 32px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 18px;
+}
+
+#signUpHeader {
+    width: 120px;
+    height: 40px;
+    background-color: rgb(181, 181, 181);
+    font-family: 'Poppins', sans-serif;
+    border-radius: 32px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 150px;
 }
