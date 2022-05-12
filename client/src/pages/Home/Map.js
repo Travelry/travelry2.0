@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Marker } from "@react-google-maps/api";
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap } from '@react-google-maps/api';
 import { useHistory } from "react-router-dom";
 import { MapContext } from "../../context/MapContext";
 import "./mapStyle.css";

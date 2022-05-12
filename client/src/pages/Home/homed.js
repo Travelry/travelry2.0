@@ -14,9 +14,8 @@ import axios from "axios";
 import "./homeStyle.css";
 
 export default function Home() {
-  const { user, isAuthenticated } = useContext(AuthContext);
-  const { scriptLoaded, markers, setScriptLoaded, tripId, setTripId } = useContext(MapContext);
-  const [value, onChange] = useState([new Date(), new Date()]);
+  const { isAuthenticated } = useContext(AuthContext);
+  const { markers, tripId, setTripId } = useContext(MapContext);
   const [selectingDates, setSelectingDates] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
