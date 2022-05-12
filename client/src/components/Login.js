@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthService from '../services/AuthService';
 import { AuthContext } from "../context/AuthContext";
 import "./styles/loginStyle.css";
 
 export default function Login(props) {
-    const { setUser, setIsAuthenticated} = useContext(AuthContext);
+    const { setUser, setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
     const [user, setTempUser] = useState({ username: "", password: "" });
     const [typing1, setTyping1] = useState(false);
     const [typing2, setTyping2] = useState(false);
@@ -42,6 +42,12 @@ export default function Login(props) {
             });
         }
     }
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            props.cancel();
+        }
+    }, [])
 
     return (
         <div id="loginBg">

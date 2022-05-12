@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthService from '../services/AuthService';
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "./styles/signUpStyle.css";
 
 export default function SignUp(props) {
-    const { setUser, setIsAuthenticated} = useContext(AuthContext);
+    const { setUser, setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
     const [user, setTempUser] = useState({ username: "", password: "", password2: "" });
     const [typing1, setTyping1] = useState(false);
     const [typing2, setTyping2] = useState(false);
@@ -60,6 +60,12 @@ export default function SignUp(props) {
             }
         }
     }
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            props.cancel();
+        }
+    }, [])
 
     return (
         <div id="loginBg">

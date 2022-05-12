@@ -1,15 +1,13 @@
-#home {
-    display: flex;
-}
-
 #homeArea {
     width: calc(100vw - 80px);
+    height: calc(100vh - 80px);
     position: absolute;
-    left: 80px;
+    right: 0px;
     top: 80px;
     background-color: #F3F4F5;
 }
 
+/* sidebar ================================================== */
 #sideBar {
     width: 80px;
     height: 100vh;
@@ -18,7 +16,7 @@
     z-index: 12;
 }
 
-#iconFlex2 {
+#sideIconFlex {
     margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -53,6 +51,7 @@
     display: initial;
 }
 
+/* content body (second sidebar) ================================================== */
 #contentBody {
     width: 40%;
     height: 100%;
@@ -62,7 +61,7 @@
     background-color: #F3F4F5;
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  
+    scrollbar-width: none;
 }
 
 #contentBody::-webkit-scrollbar {
@@ -96,7 +95,8 @@
 
 }
 
-#headerFlex {
+/* trip builder ================================================== */
+#tripHeaderFlex {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -196,10 +196,6 @@
     width: 85%;
 }
 
-#tripNotes {
- 
-}
-
 .sectionTitle {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -218,6 +214,7 @@
     color: gray;
 }
 
+/* header ================================================== */
 #headerHome {
     width: calc(100vw - 80px);
     left: 80px;
@@ -241,17 +238,6 @@
     font-size: 28px;
     margin-bottom: 5px;
     color: #01bbff;
-}
-
-#userBtn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
 }
 
 #loginHeader {

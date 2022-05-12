@@ -12,7 +12,6 @@ import SignUp from "../../components/SignUp";
 import Login from "../../components/Login";
 import axios from "axios";
 import "./homeStyle.css";
-import arrow from "../../assets/share.png";
 
 export default function Home() {
   const { user, isAuthenticated } = useContext(AuthContext);
@@ -28,7 +27,7 @@ export default function Home() {
   const [hoveringTitle, sethHoveringTitle] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const [currentPage , setCurrentPage] = useState("create");
+  const [currentPage, setCurrentPage] = useState("create");
 
   const [state, setState] = useState([
     {
@@ -121,7 +120,7 @@ export default function Home() {
       </div>
 
       <div id="sideBar">
-        <div id="iconFlex2">
+        <div id="sideIconFlex">
           <div>
             <svg onClick={() => setCurrentPage("discover")} className="sideBarIcon" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.25 11C18.25 15 12 19.25 12 19.25C12 19.25 5.75 15 5.75 11C5.75 7.5 8.68629 4.75 12 4.75C15.3137 4.75 18.25 7.5 18.25 11Z"></path>
@@ -149,7 +148,7 @@ export default function Home() {
 
         <div id="contentBody">
           <div id="sideBody">
-            <div id="headerFlex">
+            <div id="tripHeaderFlex">
               <div id="tripHeader">
                 <div id="tripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? { backgroundColor: "#F3F4F5" } : { backgroundColor: "white" }}>
                   <input value={tripTitle} onChange={(e) => changeTitle(e)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
