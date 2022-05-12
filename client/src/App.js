@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import "./index.css";
 
 // Pages
-import NoMatchPage from "./pages/noMatchPage";
+import NoMatchPage from "./pages/NoMatchPage";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
 import Home from "./pages/Home/Home";
