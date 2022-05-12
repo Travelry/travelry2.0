@@ -8,8 +8,7 @@ import "./index.css";
 import NoMatchPage from "./pages/noMatchPage";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
-import Home from "./pages/Home/home";
-import Account from "./pages/Account/account";
+import Home from "./pages/Home/Home";
 import Landing from './pages/Landing/Landing';
 
 
@@ -22,7 +21,6 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route path="/home/:location" component={Home} />
         <Route path="/home" component={Home} />
-        <PrivateRoute path="/account" component={Account} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
     </BrowserRouter>
