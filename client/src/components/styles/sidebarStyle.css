@@ -1,0 +1,43 @@
+/* sidebar ================================================== */
+#sideBar {
+    width: 80px;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    z-index: 12;
+}
+
+#sideIconFlex {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.sideBarIcon {
+    margin-bottom: 40px;
+    display: block;
+    cursor: pointer;
+}
+
+.iconIndicator {
+    position: absolute;
+    right: 0px;
+    height: 40px;
+    border-right: solid 2px black;
+    display: none;
+}
+
+#discoverIndicator {
+    top:23px;
+    display: initial;
+}
+
+#createIndicator {
+    top:88px;
+    display: initial;
+}
+
+#profileIndicator {
+    top:151px;
+    display: initial;
+}

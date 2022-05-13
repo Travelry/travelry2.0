@@ -7,50 +7,6 @@
     background-color: #F3F4F5;
 }
 
-/* sidebar ================================================== */
-#sideBar {
-    width: 80px;
-    height: 100vh;
-    position: fixed;
-    background-color: white;
-    z-index: 12;
-}
-
-#sideIconFlex {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-.sideBarIcon {
-    margin-bottom: 40px;
-    display: block;
-    cursor: pointer;
-}
-
-.iconIndicator {
-    position: absolute;
-    right: 0px;
-    height: 40px;
-    border-right: solid 2px black;
-    display: none;
-}
-
-#discoverIndicator {
-    top:23px;
-    display: initial;
-}
-
-#createIndicator {
-    top:88px;
-    display: initial;
-}
-
-#profileIndicator {
-    top:151px;
-    display: initial;
-}
-
 /* content body (second sidebar) ================================================== */
 #contentBody {
     width: 40%;
@@ -111,7 +67,7 @@
     position: relative;
 }
 
-#tripTitle {
+#editTripTitle {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 24px;
@@ -155,7 +111,7 @@
     margin-bottom: 2px;
 }
 
-#dates {
+#editDates {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
 }
@@ -212,62 +168,4 @@
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     color: gray;
-}
-
-/* header ================================================== */
-#headerHome {
-    width: calc(100vw - 80px);
-    left: 80px;
-    height: 80px;
-    background-color: white;
-    position: fixed;
-    top: 0;
-    z-index: 12;
-    display: flex;
-    align-items: center;
-    background-color: #F3F4F5;
-}
-
-#headerLogo {
-    margin-left: 40px;
-}
-
-#headerTitle {
-    margin-left: 18px;
-    font-family: 'Righteous', cursive;
-    font-size: 28px;
-    margin-bottom: 5px;
-    color: #01bbff;
-}
-
-#loginHeader {
-    width: 120px;
-    height: 40px;
-    background-color: #f33f3f;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 32px;
-    font-size: 14px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: absolute;
-    right: 18px;
-}
-
-#signUpHeader {
-    width: 120px;
-    height: 40px;
-    background-color: rgb(181, 181, 181);
-    font-family: 'Poppins', sans-serif;
-    border-radius: 32px;
-    font-size: 14px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: absolute;
-    right: 150px;
 }

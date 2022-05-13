@@ -4,6 +4,7 @@ const passport = require('passport');
 const passportConfig = require('../passport');
 const User = require('../models/User');
 const Trip = require('../models/Trip');
+const message = { msgBody: "Error has occured", msgError: true };
 
 tripRouter.post('/save', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { trip, id } = req.body;
@@ -32,6 +33,17 @@ tripRouter.post('/new', passport.authenticate('jwt', { session: false }), (req, 
                     res.status(201).json({ trip, message: { msgBody: "Trip successfully created", msgError: false } });
                 }
             });
+        }
+    });
+});
+
+tripRouter.get('/trip-info/:id', (req, res) => {
+    Trip.findById({ _id: req.params.id }).exec((err, trip) => {
+        if (err) {
+            res.status(500).json({ message });
+        }
+        else {
+            res.status(200).json({ trip });
         }
     });
 });

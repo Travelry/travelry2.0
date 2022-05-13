@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { Marker } from "@react-google-maps/api";
 import { GoogleMap } from '@react-google-maps/api';
 import { useHistory } from "react-router-dom";
-import { MapContext } from "../../context/MapContext";
-import "./mapStyle.css";
+import { MapContext } from "../context/MapContext";
+import "./styles/mapStyle.css";
 
 export default function Map() {
     const { scriptLoaded, markers, setScriptLoaded } = useContext(MapContext);
@@ -16,7 +16,7 @@ export default function Map() {
     const containerStyle = {
         width: '100%',
         height: '100%',
-        borderRadius: "18px"
+        borderRadius: "18px",
     };
 
     const defaultMapOptions = {
@@ -40,6 +40,9 @@ export default function Map() {
         if (markers.length > 0) {
             setCenter({ lat: markers[markers.length-1].lat, lng: markers[markers.length-1].lng, });
             setZoom(5);
+        } else {
+            setCenter({ lat: 15.178574, lng: -20.814149 });
+            setZoom(2);
         }
     }, [markers]);
 

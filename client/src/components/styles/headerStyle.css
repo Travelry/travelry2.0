@@ -1,0 +1,57 @@
+/* header ================================================== */
+#headerHome {
+    width: calc(100vw - 80px);
+    left: 80px;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    z-index: 13;
+    display: flex;
+    align-items: center;
+    background-color: #F3F4F5;
+}
+
+#headerLogo {
+    margin-left: 40px;
+}
+
+#headerTitle {
+    margin-left: 18px;
+    font-family: 'Righteous', cursive;
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: #01bbff;
+}
+
+#loginHeader {
+    width: 120px;
+    height: 40px;
+    background-color: #f33f3f;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 32px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 18px;
+}
+
+#signUpHeader {
+    width: 120px;
+    height: 40px;
+    background-color: rgb(181, 181, 181);
+    font-family: 'Poppins', sans-serif;
+    border-radius: 32px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 150px;
+}

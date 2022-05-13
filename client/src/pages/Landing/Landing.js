@@ -14,7 +14,7 @@ export default function Landing() {
                             xplor
                         </div>
                         <div id="openAppFlex">
-                            <div id="openApp" onClick={() => history.push("/home")}>
+                            <div id="openApp" onClick={() => history.push("/discover")}>
                                 open app
                             </div>
                         </div>

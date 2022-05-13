@@ -8,8 +8,10 @@ import "./index.css";
 import NoMatchPage from "./pages/NoMatchPage";
 import Login from "./pages/UserAuth/Login";
 import Register from "./pages/UserAuth/Register";
-import Home from "./pages/Home/Home";
+import Create from "./pages/Create/Create";
 import Landing from './pages/Landing/Landing';
+import Discover from './pages/Discover/Discover';
+import Trip from './pages/Trip.js/Trip';
 
 
 function App() {
@@ -18,9 +20,11 @@ function App() {
       <Switch>
         <UnPrivateRoute path="/login" component={Login} />
         <UnPrivateRoute path="/register" component={Register} />
+        <Route exact path="/create" component={Create} />
+        <Route exact path="/create/:id" component={Create} />
+        <Route exact path="/discover" component={Discover} />
+        <Route exact path="/trip/:id" component={Trip} />
         <Route exact path="/" component={Landing} />
-        <Route path="/home/:location" component={Home} />
-        <Route path="/home" component={Home} />
         <Route path="/" component={NoMatchPage} />
       </Switch>
     </BrowserRouter>

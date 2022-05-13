@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import Map from "./Map";
+import { useHistory } from "react-router-dom";
+import Map from "../../components/Map";
 import AutoSearch from "./AutoSearch";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -8,39 +9,35 @@ import moment from "moment";
 import { MapContext } from "../../context/MapContext";
 import { AuthContext } from "../../context/AuthContext";
 import Destination from "./Destination";
-import SignUp from "../../components/SignUp";
-import Login from "../../components/Login";
+import Sidebar from "../../components/Sidebar";
+import Header from "../../components/Header";
 import axios from "axios";
-import "./homeStyle.css";
+import "./createStyle.css";
 
-export default function Home() {
+export default function Create(props) {
+  const history = useHistory();
   const { isAuthenticated } = useContext(AuthContext);
-  const { markers, tripId, setTripId } = useContext(MapContext);
+  const { markers, setMarkers, tripId, setTripId } = useContext(MapContext);
   const [selectingDates, setSelectingDates] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [signingUp, setSigningUp] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
-  const [tripTitle, setTripTitle] = useState("Trip 1");
   const [editingTitle, setEditingTitle] = useState(false);
   const [hoveringTitle, sethHoveringTitle] = useState(false);
   const [saved, setSaved] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState("create");
+  const [trip, setTrip] = useState({ title: "new trip", startDate: new Date(), endDate: new Date() });
+  const [newTrip, setNewTrip] = useState(true);
 
   const [state, setState] = useState([
     {
       startDate: new Date(),
-      endDate: null,
+      endDate: new Date(),
       key: 'selection'
     }
   ]);
 
   function changeDates(item) {
     setState([item.selection]);
-    setStartDate(item.selection.startDate)
-    setEndDate(item.selection.endDate)
     console.log(item.selection);
+    setTrip({ ...trip, startDate: item.selection.startDate, endDate: item.selection.endDate });
     if (item.selection.endDate !== item.selection.startDate) {
       setTimeout(() => {
         setSelectingDates(false);
@@ -54,13 +51,13 @@ export default function Home() {
       if (!saved) {
         setSaved(true);
         try {
-          if (tripId) {
-            const res = await axios.post("/trip/save", { id: tripId, trip: { title: tripTitle, markers, startDate, endDate } });
+          if (newTrip) {
+            const res = await axios.post("/trip/new", { trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
             console.log(res)
+            history.push("/create/" + res.data.trip._id)
           } else {
-            const res = await axios.post("/trip/new", { trip: { title: tripTitle, markers, startDate, endDate } });
+            const res = await axios.post("/trip/save", { id: props.match.params.id, trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
             console.log(res)
-            setTripId(res.data.trip._id)
           }
         } catch (error) {
           console.log(error)
@@ -71,20 +68,36 @@ export default function Home() {
     }
   }
 
-  function switchToLogin() {
-    setSigningUp(false)
-    setLoggingIn(true)
-  }
-
-  function switchToSignup() {
-    setSigningUp(true)
-    setLoggingIn(false)
-  }
-
   function changeTitle(e) {
-    setTripTitle(e.target.value);
+    setTrip({ ...trip, title: e.target.value });
     setSaved(false);
   }
+
+  async function getTripData(id) {
+    try {
+      const data = await axios.get("/trip/trip-info/" + id);
+      console.log(data);
+      if (data.data?.trip) {
+        setMarkers(data.data.trip.markers);
+        setTrip(data.data.trip);
+      } else {
+        history.push("/discover");
+      }
+    } catch (error) {
+      console.log(error);
+      history.push("/discover");
+    }
+  }
+
+  useEffect(() => {
+    setMarkers([]);
+    if (props.match.params.id) {
+      getTripData(props.match.params.id.slice(0, 24));
+      if (props.match.params.id.length === 24) {
+        setNewTrip(false);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setSaved(false);
@@ -93,64 +106,17 @@ export default function Home() {
   return (
     <div id="home">
 
-      {loggingIn ? <Login switch={() => switchToSignup()} cancel={() => setLoggingIn(false)} /> : null}
-      {signingUp ? <SignUp switch={() => switchToLogin()} cancel={() => setSigningUp(false)} /> : null}
+      <Header signup={signingUp} cancelOther={() => setSigningUp(false)} />
 
-
-      <div id="headerHome">
-        <svg id="headerLogo" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="7.25" stroke="#01bbff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle>
-          <path stroke="#01bbff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.25 12C15.25 16.5 13.2426 19.25 12 19.25C10.7574 19.25 8.75 16.5 8.75 12C8.75 7.5 10.7574 4.75 12 4.75C13.2426 4.75 15.25 7.5 15.25 12Z"></path>
-          <path stroke="#01bbff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12H12H19"></path>
-        </svg>
-
-        <div id="headerTitle">
-          xplor
-        </div>
-
-        <div id="loginHeader" onClick={() => setLoggingIn(true)}>
-          login
-        </div>
-
-        <div id="signUpHeader" onClick={() => setSigningUp(true)}>
-          sign up
-        </div>
-
-      </div>
-
-      <div id="sideBar">
-        <div id="sideIconFlex">
-          <div>
-            <svg onClick={() => setCurrentPage("discover")} className="sideBarIcon" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.25 11C18.25 15 12 19.25 12 19.25C12 19.25 5.75 15 5.75 11C5.75 7.5 8.68629 4.75 12 4.75C15.3137 4.75 18.25 7.5 18.25 11Z"></path>
-              <circle cx="12" cy="11" r="2.25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle>
-            </svg>
-
-            <svg onClick={() => setCurrentPage("create")} className="sideBarIcon" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5.75V18.25"></path>
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.25 12L5.75 12"></path>
-            </svg>
-
-            <svg onClick={() => setCurrentPage("profile")} className="sideBarIcon" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="3.25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle>
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.8475 19.25H17.1525C18.2944 19.25 19.174 18.2681 18.6408 17.2584C17.8563 15.7731 16.068 14 12 14C7.93201 14 6.14367 15.7731 5.35924 17.2584C4.82597 18.2681 5.70558 19.25 6.8475 19.25Z"></path>
-            </svg>
-          </div>
-
-        </div>
-        <div className="iconIndicator" id={currentPage + "Indicator"}>
-
-        </div>
-      </div>
+      <Sidebar currentPage="create" />
 
       <div id="homeArea">
-
         <div id="contentBody">
           <div id="sideBody">
             <div id="tripHeaderFlex">
               <div id="tripHeader">
-                <div id="tripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? { backgroundColor: "#F3F4F5" } : { backgroundColor: "white" }}>
-                  <input value={tripTitle} onChange={(e) => changeTitle(e)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
+                <div id="editTripTitle" onMouseEnter={() => sethHoveringTitle(true)} onMouseLeave={() => sethHoveringTitle(false)} style={editingTitle || hoveringTitle ? { backgroundColor: "#F3F4F5" } : { backgroundColor: "white" }}>
+                  <input value={trip.title} onChange={(e) => changeTitle(e)} id="tripTitleInput" onBlur={() => setEditingTitle(false)} onFocus={() => setEditingTitle(true)}></input>
                 </div>
                 <div id="datesFlex" onClick={() => setSelectingDates(!selectingDates)}>
                   <svg width="24" height="24" fill="none" viewBox="0 0 24 24" id="calendarIcon">
@@ -159,8 +125,8 @@ export default function Home() {
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 4.75V8.25"></path>
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 10.75H16.25"></path>
                   </svg>
-                  <div id="dates">
-                    {moment(startDate).format('l')} - {moment(endDate).format('l')}
+                  <div id="editDates">
+                    {moment(trip.startDate).format('l')} - {moment(trip.endDate).format('l')}
                   </div>
                 </div>
                 <div id="dateSelector" style={selectingDates ? { display: "initial" } : { display: "none" }}>
@@ -209,7 +175,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <Map />
       </div>
     </div>
