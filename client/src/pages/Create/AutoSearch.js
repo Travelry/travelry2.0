@@ -4,7 +4,7 @@ import "./autoSearchStyle.css";
 let autoComplete;
 
 function AutoSearch() {
-    const { setScriptLoaded, setMarkers } = useContext(MapContext);
+    const { setScriptLoaded, setMarkers, setNewDest } = useContext(MapContext);
     const [query, setQuery] = useState("");
     const [typing, setTyping] = useState(false);
     const autoCompleteRef = useRef(null);
@@ -48,6 +48,7 @@ function AutoSearch() {
             console.log(lat);
             console.log(lng);
             setMarkers(markers => [...markers, { lat, lng, address: addressObject.formatted_address }]);
+            setNewDest(true);
         }
         setQuery("");
     }

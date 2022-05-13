@@ -8,7 +8,7 @@ import { DateRange } from 'react-date-range';
 import moment from "moment";
 import { MapContext } from "../../context/MapContext";
 import { AuthContext } from "../../context/AuthContext";
-import Destination from "./Destination";
+import EditDestination from "./EditDestination";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
 import axios from "axios";
@@ -17,7 +17,7 @@ import "./createStyle.css";
 export default function Create(props) {
   const history = useHistory();
   const { isAuthenticated } = useContext(AuthContext);
-  const { markers, setMarkers, tripId, setTripId } = useContext(MapContext);
+  const { markers, setMarkers, valueChanged, newDest, setNewDest } = useContext(MapContext);
   const [selectingDates, setSelectingDates] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
   const [editingTitle, setEditingTitle] = useState(false);
@@ -53,7 +53,7 @@ export default function Create(props) {
         try {
           if (newTrip) {
             const res = await axios.post("/trip/new", { trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
-            console.log(res)
+            // handle errors ===========================================
             history.push("/create/" + res.data.trip._id)
           } else {
             const res = await axios.post("/trip/save", { id: props.match.params.id, trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
@@ -89,6 +89,11 @@ export default function Create(props) {
     }
   }
 
+  function removeItem(index) {
+    setMarkers(markers => (markers.filter((mark, i) => i !== index)));
+    setSaved(false);
+  }
+
   useEffect(() => {
     setMarkers([]);
     if (props.match.params.id) {
@@ -101,7 +106,15 @@ export default function Create(props) {
 
   useEffect(() => {
     setSaved(false);
-  }, [markers]);
+  }, [valueChanged, markers]);
+
+  useEffect(() => {
+    if (newDest) {
+      var objDiv = document.getElementById("contentBody");
+      objDiv.scrollTop = objDiv.scrollHeight;
+      setNewDest(false);
+    }
+  }, [newDest]);
 
   return (
     <div id="home">
@@ -157,10 +170,13 @@ export default function Create(props) {
                 </div>
 
 
-                {markers.length > 0 ? markers.map(marker => {
-                  return <Destination
-                    key={marker.address}
+                {markers.length > 0 ? markers.map((marker, index) => {
+                  return <EditDestination
+                    key={marker.address + index}
                     address={marker.address}
+                    removeItem={() => removeItem(index)}
+                    marker={marker}
+                    index={index}
                   />
                 }) : <div id="noDestination"> add a destination to update your itinerary </div>}
               </div>
@@ -172,6 +188,12 @@ export default function Create(props) {
                 </svg>
                 : "save trip"
               }
+            </div>
+            <div id="fadeBlock">
+
+            </div>
+            <div id="block">
+
             </div>
           </div>
         </div>

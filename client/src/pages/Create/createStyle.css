@@ -18,6 +18,7 @@
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;
+    padding-bottom: 80px;
 }
 
 #contentBody::-webkit-scrollbar {
@@ -25,12 +26,12 @@
 }
 
 #sideBody {
-    height: 200vh;
     position: relative;
 }
 
 #saveBtn {
     position: fixed;
+    z-index: 5;
     bottom: 20px;
     left: calc(20vw - 20px);
     width: 160px;
@@ -120,6 +121,8 @@
     left: 20px;
     bottom: -292px;
     position: absolute;
+    z-index: 10;
+    /* border: solid 2px #01bbff; */
     display: none;
 }
 

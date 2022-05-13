@@ -82,7 +82,7 @@ export default function Trip(props) {
                             </div>
                         </div>
                         <div id="saveBtn" onClick={() => history.push("/create/"+ props.match.params.id +  "0")}>
-                                edit trip
+                                customize
                         </div>
                     </div>
 
