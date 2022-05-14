@@ -123,6 +123,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .expenseFor {
@@ -148,4 +149,33 @@
     position: absolute;
     right: 0px;
     cursor: pointer;
+}
+
+.dollaSign {
+    position: absolute;
+    left: 10px;
+}
+
+.priceInput {
+    position: absolute;
+    left: 22px;
+    width: calc(100% - 30px);
+    height: 90%;
+    resize: none;
+    border: none; 
+    outline: none;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+
+.activityInput {
+    left: 22px;
+    width: 90%;
+    height: 90%;
+    resize: none;
+    border: none; 
+    outline: none;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
 }

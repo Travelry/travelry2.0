@@ -1,25 +1,61 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { MapContext } from "../../context/MapContext";
 import "./editDestinationStyle.css";
 
 export default function EditDestination(props) {
     const { markers, setMarkers, valueChanged, setValueChanged } = useContext(MapContext);
-    const [descr, setDescr] = useState(props.marker.description);
 
     function editDescription(e) {
-        const newDescription = e.target.value;
-        const newMarkers = markers;
-        setDescr(e.target.value)
-        newMarkers.splice(props.index, props.index + 1, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: newDescription });
-        newMarkers.filter((mark, i) => i !== props.index);
+        let newMarkers = markers;
+        newMarkers.splice(props.index, 0, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: e.target.value, expenses: props.marker.expenses });
+        newMarkers = newMarkers.filter((mark, i) => i !== props.index + 1);
         setMarkers(newMarkers);
         setValueChanged(!valueChanged);
-
-        // setMarkers(markers => (markers.splice(props.index, props.index + 1, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: newDescription })));
-        // setMarkers(markers => (markers.filter((mark, i) => i !== props.index)));
     }
-    
-    
+
+    function addExpense() {
+        const newExpense = { amount: 0, activity: "surfing" };
+        let expenseArray = [];
+        if (markers[props.index].expenses?.length > 0) {
+            expenseArray = markers[props.index].expenses;
+        }
+        expenseArray.push(newExpense);
+        let newMarkers = markers;
+        newMarkers.splice(props.index, 0, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: props.marker.description, expenses: expenseArray });
+        newMarkers = newMarkers.filter((mark, i) => i !== props.index + 1);
+        setMarkers(newMarkers);
+        setValueChanged(!valueChanged);
+    }
+
+    function removeExpense(index) {
+        let expenseArray = (props.marker.expenses.filter((mark, i) => i !== index));
+        let newMarkers = markers;
+        newMarkers.splice(props.index, 0, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: props.marker.description, expenses: expenseArray });
+        newMarkers = newMarkers.filter((mark, i) => i !== props.index + 1);
+        setMarkers(newMarkers);
+        setValueChanged(!valueChanged);
+    }
+
+    function editExpense(e, index, theWhat) {
+        let expense = {};
+        if (theWhat === "amount") {
+            expense = { amount: e.target.value, activity: props.marker.expenses[index].activity }
+        } else {
+            expense = { amount: props.marker.expenses[index].amount, activity: e.target.value }
+        }
+        let expenseArray = props.marker.expenses;
+        expenseArray.splice(index, 0, expense);
+        expenseArray = expenseArray.filter((mark, i) => i !== index + 1);
+
+        let newMarkers = markers;
+        newMarkers.splice(props.index, 0, { lat: props.marker.lat, lng: props.marker.lng, address: props.marker.address, description: props.marker.description, expenses: expenseArray });
+        newMarkers = newMarkers.filter((mark, i) => i !== props.index + 1);
+        setMarkers(newMarkers);
+        setValueChanged(!valueChanged);
+    }
+
+
+
 
     return (
         <div className="itinItem">
@@ -41,60 +77,42 @@ export default function EditDestination(props) {
             </div>
 
             <div className="itemDescription">
-                <textarea onChange={(e) => editDescription(e)} value={descr} className="itemInput" placeholder="enter a description"></textarea>
+                <textarea onChange={(e) => editDescription(e)} value={markers[props.index].description} className="itemInput" placeholder="enter a description"></textarea>
             </div>
 
-            <div className="expensesTitle">
-                expenses
-            </div>
+            {markers[props.index].expenses?.length > 0 ?
+                <div>
+
+                    <div className="expensesTitle">
+                        expenses
+                    </div>
 
 
-            <div className="itemExpense2">
-                <div className="expensePrice2">
-                    $60
+                    {markers[props.index].expenses.map((expense, index) => {
+                        return <div className="itemExpense2">
+                            <div className="expensePrice2">
+                                <div className="dollaSign">
+                                    $
+                                </div>
+                                <input onChange={(e) => editExpense(e, index, "amount")} value={expense.amount} className="priceInput"></input>
+                            </div>
+                            <div className="expenseFor">
+                                for
+                            </div>
+                            <div className="expenseTitle">
+                                <input onChange={(e) => editExpense(e, index, "activity")} value={expense.activity} className="activityInput"></input>
+                            </div>
+                            <svg onClick={() => removeExpense(index)} className="removeExpense" width="22" height="22" fill="none" viewBox="0 0 24 24">
+                                <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
+                                <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
+                            </svg>
+                        </div>
+                    })}
                 </div>
-                <div className="expenseFor">
-                    for
-                </div>
-                <div className="expenseTitle">
-                    surfing
-                </div>
-                <svg className="removeExpense" width="22" height="22" fill="none" viewBox="0 0 24 24">
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
-                </svg>
-            </div>
-            <div className="itemExpense2">
-                <div className="expensePrice2">
-                    $60
-                </div>
-                <div className="expenseFor">
-                    for
-                </div>
-                <div className="expenseTitle">
-                    sky diving
-                </div>
-                <svg className="removeExpense" width="22" height="22" fill="none" viewBox="0 0 24 24">
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
-                </svg>
-            </div>
-            <div className="itemExpense2">
-                <div className="expensePrice2">
-                    $60
-                </div>
-                <div className="expenseFor">
-                    for
-                </div>
-                <div className="expenseTitle">
-                    movies
-                </div>
-                <svg className="removeExpense" width="22" height="22" fill="none" viewBox="0 0 24 24">
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
-                    <path stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
-                </svg>
-            </div>
-            <div className="addItemExpense">
+                : null}
+
+
+            <div className="addItemExpense" onClick={() => addExpense()}>
                 <div className="plusItemExpense">
                     <svg width="28" height="18" fill="none" viewBox="0 0 24 24">
                         <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5.75V18.25"></path>

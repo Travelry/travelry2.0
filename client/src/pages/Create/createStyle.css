@@ -18,7 +18,6 @@
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;
-    padding-bottom: 80px;
 }
 
 #contentBody::-webkit-scrollbar {
@@ -27,6 +26,7 @@
 
 #sideBody {
     position: relative;
+    padding-bottom: 80px;
 }
 
 #saveBtn {
