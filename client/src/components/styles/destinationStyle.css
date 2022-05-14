@@ -13,3 +13,52 @@
     font-family: 'Poppins', sans-serif;
     margin-left: 10px;
 } */
+
+.itinItem {
+    width: 100%;
+    min-height: 65px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    position: relative;
+    /* transition: all 0.2s linear; */
+    border: solid 1px white;
+}
+
+.itinItem:hover {
+    border-color: #01bbff;
+    cursor: pointer;
+}
+
+.itemDescriptionArea {
+
+ 
+    width: 90%;
+
+    margin-left: 20px;
+    border-radius:8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.itemDescription {
+    width: 95%;
+ 
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.itemExpenses {
+    padding-bottom: 20px;
+}
+
+.expensesTitle {
+    font-family: 'Poppins', sans-serif;
+    margin-left: 20px;
+    width: 82%;
+    border-bottom: solid 1px rgb(198, 198, 198);
+    padding-bottom: 5px;
+    margin-top: 20px;
+    color: black;
+}

@@ -24,6 +24,14 @@
     color: #01bbff;
 }
 
+#headerBtns {
+    position: absolute;
+    right: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 #loginHeader {
     width: 120px;
     height: 40px;
@@ -36,8 +44,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: absolute;
-    right: 18px;
+    margin-right: 20px;
 }
 
 #signUpHeader {
@@ -52,6 +59,4 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: absolute;
-    right: 150px;
 }

@@ -10,6 +10,10 @@ import { AuthContext } from "../../context/AuthContext";
 import "./discoverStyle.css";
 
 export default function Discover() {
+    const {setMarkers} = useContext(MapContext);
+    useEffect(() => {
+        setMarkers([]);
+    }, [])
 
     return (
         <div>

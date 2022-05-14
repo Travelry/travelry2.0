@@ -1,4 +1,4 @@
-.itinItem {
+.editItem {
     width: 100%;
     background-color: white;
     border-radius: 8px;
@@ -31,7 +31,7 @@
     cursor: pointer;
 }
 
-.itemDescription {
+.editItemDescription {
     width: 380px;
     width: 82%;
     height: 80px;
@@ -54,14 +54,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.expensesTitle {
+.editExpensesTitle {
     font-family: 'Poppins', sans-serif;
     margin-left: 20px;
     width: 82%;
     border-bottom: solid 1px rgb(198, 198, 198);
     padding-bottom: 5px;
     margin-top: 20px;
-    color: gray;
+    color: black;
 }
 
 .addItemExpense {
@@ -132,7 +132,7 @@
     font-size: 14px;
 }
 
-.expenseTitle {
+.editExpenseTitle {
     margin-left: 10px;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;

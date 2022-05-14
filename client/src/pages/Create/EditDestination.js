@@ -3,7 +3,7 @@ import { MapContext } from "../../context/MapContext";
 import "./editDestinationStyle.css";
 
 export default function EditDestination(props) {
-    const { markers, setMarkers, valueChanged, setValueChanged } = useContext(MapContext);
+    const { markers, setMarkers, valueChanged, setValueChanged, setCenter } = useContext(MapContext);
 
     function editDescription(e) {
         let newMarkers = markers;
@@ -58,7 +58,7 @@ export default function EditDestination(props) {
 
 
     return (
-        <div className="itinItem">
+        <div className="editItem" onClick={() => setCenter({lat: props.marker.lat, lng: props.marker.lng})}>
             <div className="itemRow">
                 <svg className="itemCarat" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.25 10.75L12 14.25L8.75 10.75"></path>
@@ -76,14 +76,14 @@ export default function EditDestination(props) {
 
             </div>
 
-            <div className="itemDescription">
+            <div className="editItemDescription">
                 <textarea onChange={(e) => editDescription(e)} value={markers[props.index].description} className="itemInput" placeholder="enter a description"></textarea>
             </div>
 
             {markers[props.index].expenses?.length > 0 ?
                 <div>
 
-                    <div className="expensesTitle">
+                    <div className="editExpensesTitle">
                         expenses
                     </div>
 
@@ -99,7 +99,7 @@ export default function EditDestination(props) {
                             <div className="expenseFor">
                                 for
                             </div>
-                            <div className="expenseTitle">
+                            <div className="editExpenseTitle">
                                 <input onChange={(e) => editExpense(e, index, "activity")} value={expense.activity} className="activityInput"></input>
                             </div>
                             <svg onClick={() => removeExpense(index)} className="removeExpense" width="22" height="22" fill="none" viewBox="0 0 24 24">

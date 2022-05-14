@@ -4,12 +4,12 @@ import "./styles/tripPreviewStyle.css";
 
 export default function TripPreview(props) {
     const history = useHistory();
-    const [backSize, setBackSize] = useState("100%");
+    const [backSize, setBackSize] = useState("120%");
     const [liked, setLiked] = useState(false);
 
     return (
         <div id="tripPreviewFlex">
-            <div onClick={() => history.push("/trip/627c04304f90a66241f33370")} id="tripPreview" onMouseEnter={() => setBackSize("110%")} onMouseLeave={() => setBackSize("100%")} style={{ backgroundImage: "url(https://wallpapercave.com/wp/rI3JaNl.jpg)", backgroundSize: backSize }}>
+            <div onClick={() => history.push("/trip/627f22b488fc82b3d5fce306")} id="tripPreview" onMouseEnter={() => setBackSize("130%")} onMouseLeave={() => setBackSize("120%")} style={{ backgroundImage: "url(https://wallpapercave.com/wp/rI3JaNl.jpg)", backgroundSize: backSize }}>
                 <div className="previewTitle">
                     Tahiti
                 </div>

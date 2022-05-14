@@ -25,6 +25,8 @@ export default function Create(props) {
   const [saved, setSaved] = useState(false);
   const [trip, setTrip] = useState({ title: "new trip", startDate: new Date(), endDate: new Date() });
   const [newTrip, setNewTrip] = useState(true);
+  const [typing, setTyping] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const [state, setState] = useState([
     {
@@ -94,6 +96,11 @@ export default function Create(props) {
     setSaved(false);
   }
 
+  function changeTripImage(e) {
+    setImageError(false);
+    setTrip({ ...trip, tripImage: e.target.value })
+  }
+
   useEffect(() => {
     setMarkers([]);
     if (props.match.params.id) {
@@ -158,11 +165,39 @@ export default function Create(props) {
             </div>
             <div className="tripInfoFlex">
               <div className="tripInfo">
-                <div id="tripNotes">
-                  <div className="sectionTitle">
-                    add a destination
+
+
+                {/* {trip.tripImage && !imageError ?
+                  <div id="editImageBg">
+                    <img id="editImage" src={trip.tripImage} onError={() => setImageError(true)}></img>
                   </div>
+                  :
+                  <div>
+                    <div className="sectionTitle">
+                      add an image
+                    </div>
+
+                    <div id="autoSearch" style={typing ? { borderColor: "#0099d6" } : { borderColor: "rgb(213, 213, 213)" }}>
+                      <input
+                        id="autoSearchInput"
+                        placeholder="image url"
+                        onBlur={() => setTyping(false)}
+                        onFocus={() => setTyping(true)}
+                        onSubmit={(e) => e.preventDefault()}
+                        onChange={(e) => changeTripImage(e)}
+                        value={trip.tripImage}
+                      />
+                    </div>
+
+                  </div>
+
+                } */}
+
+
+                <div className="sectionTitle">
+                  add a destination
                 </div>
+
                 <AutoSearch />
 
                 <div className="sectionTitle" id="itineraryTitle">

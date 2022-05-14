@@ -75,7 +75,7 @@ function AutoSearch() {
                 id="autoSearchInput"
                 ref={autoCompleteRef}
                 onChange={event => setQuery(event.target.value)}
-                placeholder="Enter a City"
+                placeholder="enter a location"
                 value={query}
                 onBlur={() => setTyping(false)}
                 onFocus={() => setTyping(true)}

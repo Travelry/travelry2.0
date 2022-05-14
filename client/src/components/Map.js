@@ -6,8 +6,7 @@ import { MapContext } from "../context/MapContext";
 import "./styles/mapStyle.css";
 
 export default function Map() {
-    const { scriptLoaded, markers, setScriptLoaded } = useContext(MapContext);
-    const [center, setCenter] = useState({ lat: 15.178574, lng: -20.814149 });
+    const { scriptLoaded, markers, setScriptLoaded, center, setCenter } = useContext(MapContext);
     const [zoom, setZoom] = useState(2);
     const [map, setMap] = useState(null);
     const [loaded, setLoaded] = useState(false);
@@ -45,6 +44,14 @@ export default function Map() {
             setZoom(2);
         }
     }, [markers]);
+
+    useEffect(() => {
+        // if(center) {
+        //     setZoom(5)
+        // } else {
+        //     setZoom(2);
+        // }
+    }, [center]);
 
     function newPlace(lat, lng) {
         setCenter({ lat: lat, lng: lng, });

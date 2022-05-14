@@ -9,7 +9,7 @@
 
 /* content body (second sidebar) ================================================== */
 #contentBody {
-    width: 40%;
+    width: calc(45% - 65px);
     height: 100%;
     /* box-shadow: 0 8px 16px 12px rgba(0,0,0,0.2); */
     left: 0px;
@@ -32,7 +32,7 @@
 #saveBtn {
     position: fixed;
     z-index: 5;
-    bottom: 20px;
+    bottom: 30px;
     left: calc(20vw - 20px);
     width: 160px;
     height: 45px;
@@ -155,6 +155,19 @@
     width: 85%;
 }
 
+#editImageBg {
+    width: 99%;
+    height: 180px;
+    position: relative;
+}
+
+#editImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 .sectionTitle {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -164,7 +177,7 @@
 }
 
 #itineraryTitle {
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 #noDestination {

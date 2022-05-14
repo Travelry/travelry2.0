@@ -15,6 +15,9 @@ const TripSchema = new mongoose.Schema({
     },
     markers: {
         type: Array
+    },
+    tripImage: {
+        type: String
     }
 });
 

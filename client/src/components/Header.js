@@ -45,11 +45,13 @@ export default function Header(props) {
             <div id="headerTitle">
                 xplor
             </div>
+            <div id="headerBtns">
             <div id="loginHeader" onClick={() => setLoggingIn(true)}>
                 login
             </div>
             <div id="signUpHeader" onClick={() => setSigningUp(true)}>
                 sign up
+            </div>
             </div>
         </div>
     );

@@ -41,8 +41,6 @@ export default function Trip(props) {
             <Sidebar currentPage="discover" />
             <div id="homeArea">
                 <div id="contentBody">
-
-
                     <div id="sideBody">
                         <div id="tripHeaderFlex">
                             <div id="tripHeader">
@@ -67,16 +65,15 @@ export default function Trip(props) {
                         </div>
                         <div className="tripInfoFlex">
                             <div className="tripInfo">
-
                                 <div className="sectionTitle" id="itineraryTitle">
                                     Itinerary
                                 </div>
-
-
-                                {markers.length > 0 ? markers.map(marker => {
+                                {markers.length > 0 ? markers.map((marker,index) => {
                                     return <Destination
                                         key={marker.address}
                                         address={marker.address}
+                                        marker={marker}
+                                        index={index}
                                     />
                                 }) : <div id="noDestination"> add a destination to update your itinerary </div>}
                             </div>
@@ -85,9 +82,6 @@ export default function Trip(props) {
                                 customize
                         </div>
                     </div>
-
-
-
                 </div>
                 <Map />
                 <div style={{ display: "none" }}>
