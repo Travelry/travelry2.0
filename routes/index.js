@@ -4,8 +4,8 @@ const userRouter = require("./User.js");
 const tripRouter = require("./TripRoutes.js");
 
 // API Routes
-router.use("/User", userRouter);
-router.use("/Trip", tripRouter);
+router.use("/user", userRouter);
+router.use("/trip", tripRouter);
 
 // If no API routes are hit, send the React app
 router.use('*',function(req, res) {
