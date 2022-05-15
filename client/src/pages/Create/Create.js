@@ -105,11 +105,9 @@ export default function Create(props) {
     setMarkers([]);
     if (props.match.params.id) {
       getTripData(props.match.params.id.slice(0, 24));
-      if (props.match.params.id.length === 24) {
-        setNewTrip(false);
-      }
+      setNewTrip(false);
     }
-  }, []);
+  }, [props.match.params.id]);
 
   useEffect(() => {
     setSaved(false);
