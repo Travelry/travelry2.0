@@ -58,15 +58,16 @@ userRouter.get('/authenticated', passport.authenticate('jwt', { session: false }
 //gets user info
 userRouter.get('/info', passport.authenticate('jwt', { session: false }), (req, res) => {
     const message = { msgBody: "Error has occured", msgError: true };
-    User.findById({ _id: req.user._id }).exec((err, document) => {
+    User.findById({ _id: req.user._id }).populate("trips").exec((err, user) => {
         if (err) {
             res.status(500).json({ message });
         }
         else {
             res.status(200).json({
-                id: document._id,
-                username: document.username,
-                address: document.address,
+                id: user._id,
+                username: user.username,
+                address: user.address,
+                trips: user.trips,
                 authenticated: true
             });
         }

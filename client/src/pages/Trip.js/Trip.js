@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import AutoSearch from "../Create/AutoSearch";
 import { MapContext } from "../../context/MapContext";
 import Destination from "../../components/Destination";
+import ShareModal from "../../components/ShareModal";
 import axios from "axios";
 import moment from "moment";
 import "./tripStyle.css";
@@ -14,6 +15,7 @@ export default function Trip(props) {
     const history = useHistory();
     const { markers, setMarkers, tripId, setTripId } = useContext(MapContext);
     const [trip, setTrip] = useState({});
+    const [sharing, setSharing] = useState(true);
 
     useEffect(() => {
         getTripData(props.match.params.id);
@@ -39,6 +41,7 @@ export default function Trip(props) {
         <div>
             <Header signup={null} cancelOther={() => null} />
             <Sidebar currentPage="discover" />
+            {sharing ? <ShareModal cancel={() => setSharing(false)} /> : null}
             <div id="homeArea">
                 <div id="contentBody">
                     <div id="sideBody">
@@ -58,8 +61,13 @@ export default function Trip(props) {
                                         {moment(trip.startDate).format('l')} - {moment(trip.endDate).format('l')}
                                     </div>
                                 </div>
-                                <div id="shareBtn">
-                                    <svg width="24" height="24" viewBox="0 0 640 512" color="#6c757d"><path fill="currentColor" d='M624 208h-64v-64c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v64h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64v64c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-64h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm-400 48c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z'></path></svg>
+                                <div id="shareBtn" onClick={() => setSharing(true)}>
+                                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.25 4.75H6.75C5.64543 4.75 4.75 5.64543 4.75 6.75V17.25C4.75 18.3546 5.64543 19.25 6.75 19.25H17.25C18.3546 19.25 19.25 18.3546 19.25 17.25V14.75"></path>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 9.25V4.75H14.75"></path>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L11.75 12.25"></path>
+                                    </svg>
+
                                 </div>
                             </div>
                         </div>
@@ -68,7 +76,7 @@ export default function Trip(props) {
                                 <div className="sectionTitle" id="itineraryTitle">
                                     Itinerary
                                 </div>
-                                {markers.length > 0 ? markers.map((marker,index) => {
+                                {markers.length > 0 ? markers.map((marker, index) => {
                                     return <Destination
                                         key={marker.address}
                                         address={marker.address}
@@ -78,8 +86,12 @@ export default function Trip(props) {
                                 }) : <div id="noDestination"> add a destination to update your itinerary </div>}
                             </div>
                         </div>
-                        <div id="saveBtn" onClick={() => history.push("/create/"+ props.match.params.id +  "0")}>
-                                customize
+                        <div id="saveBtn" onClick={() => history.push("/create/" + props.match.params.id + "0")}>
+                            customize
+                        </div>
+                        <div id="fadeBlock">
+                        </div>
+                        <div id="block">
                         </div>
                     </div>
                 </div>

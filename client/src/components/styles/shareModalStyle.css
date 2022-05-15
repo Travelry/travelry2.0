@@ -1,0 +1,81 @@
+#shareBg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 15;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#shareArea {
+    width: 420px;
+    height: 200px;
+    background-color: white;
+    border-radius: 12px;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+#shareTitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+}
+
+#shareFlex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#shareBody {
+    width: 80%;
+    height: 200px;
+    margin-top: 55px;
+    position: relative;
+}
+
+#urlFlex {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+#tripUrlArea {
+    margin-left: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    width: 90%;
+    height: 40px;
+    background-color: #F3F4F5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shareInputDisplay {
+    left: 22px;
+    width: 100%;
+    height: 90%;
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+#copyIcon {
+    margin-left: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: -20px;
+}

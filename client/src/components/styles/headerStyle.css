@@ -14,6 +14,7 @@
 
 #headerLogo {
     margin-left: 40px;
+    cursor: pointer;
 }
 
 #headerTitle {
@@ -22,6 +23,7 @@
     font-size: 28px;
     margin-bottom: 5px;
     color: #01bbff;
+    cursor: pointer;
 }
 
 #headerBtns {
@@ -44,7 +46,6 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    margin-right: 20px;
 }
 
 #signUpHeader {
@@ -59,4 +60,5 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-left: 20px;
 }

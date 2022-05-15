@@ -54,11 +54,11 @@ export default function Create(props) {
         setSaved(true);
         try {
           if (newTrip) {
-            const res = await axios.post("/trip/new", { trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
+            const res = await axios.post("/trip/new", { trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate, tripImage: trip.tripImage } });
             // handle errors ===========================================
             history.push("/create/" + res.data.trip._id)
           } else {
-            const res = await axios.post("/trip/save", { id: props.match.params.id, trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate } });
+            const res = await axios.post("/trip/save", { id: props.match.params.id, trip: { title: trip.title, markers, startDate: trip.startDate, endDate: trip.endDate, tripImage: trip.tripImage } });
             console.log(res)
           }
         } catch (error) {
@@ -167,8 +167,15 @@ export default function Create(props) {
               <div className="tripInfo">
 
 
-                {/* {trip.tripImage && !imageError ?
+                {trip.tripImage && !imageError ?
                   <div id="editImageBg">
+                    <svg onClick={() => setTrip({ ...trip, tripImage: "" })} className="removeImage" width="22" height="22" fill="none" viewBox="0 0 24 24">
+                      <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
+                      <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
+                    </svg>
+                    <div className="editImageFade">
+
+                    </div>
                     <img id="editImage" src={trip.tripImage} onError={() => setImageError(true)}></img>
                   </div>
                   :
@@ -191,7 +198,7 @@ export default function Create(props) {
 
                   </div>
 
-                } */}
+                }
 
 
                 <div className="sectionTitle">

@@ -29,11 +29,11 @@ export default function Login(props) {
             AuthService.login(user).then(data => {
                 const { isAuthenticated, user } = data;
                 if (isAuthenticated) {
-                    setUser(user);
-                    setIsAuthenticated(true);
                     setTimeout(() => {
+                        setUser(user);
+                        setIsAuthenticated(true);
                         props.cancel();
-                    }, 1500);
+                    }, 1000);
                 } else {
                     setLoading(false);
                     setMessage({ msgBody: "an error occurred", msgError: true });

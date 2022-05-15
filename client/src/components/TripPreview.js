@@ -9,7 +9,7 @@ export default function TripPreview(props) {
 
     return (
         <div id="tripPreviewFlex">
-            <div onClick={() => history.push("/trip/627f22b488fc82b3d5fce306")} id="tripPreview" onMouseEnter={() => setBackSize("130%")} onMouseLeave={() => setBackSize("120%")} style={{ backgroundImage: "url(https://wallpapercave.com/wp/rI3JaNl.jpg)", backgroundSize: backSize }}>
+            <div onClick={() => history.push("/trip/627f3ac3d54ff1bd97791dcb")} id="tripPreview" onMouseEnter={() => setBackSize("130%")} onMouseLeave={() => setBackSize("120%")} style={{ backgroundImage: "url(https://wallpapercave.com/wp/rI3JaNl.jpg)", backgroundSize: backSize }}>
                 <div className="previewTitle">
                     Tahiti
                 </div>

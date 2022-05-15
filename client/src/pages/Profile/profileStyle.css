@@ -1,0 +1,68 @@
+#profilePage {
+    width: calc(100vw - 80px);
+    height: calc(100vh - 80px);
+    position: fixed;
+    top: 80px;
+    left: 80px;
+    background-color: #F3F4F5;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+
+#profilePage::-webkit-scrollbar {
+    display: none;
+}
+
+#profileFlex {
+    width: 100%;
+    display: flex;
+    margin-left: 40px;
+    position: relative;
+}
+
+#profileArea {
+    width: calc(100% - 80px);
+}
+
+#profileRowFlex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#profileRow {
+    width: 90%;
+}   
+
+#imageNameFlex {
+    display: flex;
+    align-items: center;
+}
+
+#profileName {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+#myTrips {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+}
+
+#profileImage {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: rgb(213, 213, 213);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profileLine {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: solid 1.5px rgb(192, 192, 192);
+}

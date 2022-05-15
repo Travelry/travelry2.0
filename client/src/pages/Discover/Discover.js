@@ -11,6 +11,8 @@ import "./discoverStyle.css";
 
 export default function Discover() {
     const {setMarkers} = useContext(MapContext);
+    const topTrips = [];
+
     useEffect(() => {
         setMarkers([]);
     }, [])

@@ -11,7 +11,7 @@ export default function Landing() {
                 <div id="landingFlex">
                     <div id="landingArea">
                         <div id="landingTitle">
-                            xplor
+                            travelry
                         </div>
                         <div id="openAppFlex">
                             <div id="openApp" onClick={() => history.push("/discover")}>

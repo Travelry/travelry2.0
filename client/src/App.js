@@ -12,6 +12,7 @@ import Create from "./pages/Create/Create";
 import Landing from './pages/Landing/Landing';
 import Discover from './pages/Discover/Discover';
 import Trip from './pages/Trip.js/Trip';
+import Profile from "./pages/Profile/Profile";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Switch>
         <UnPrivateRoute path="/login" component={Login} />
         <UnPrivateRoute path="/register" component={Register} />
+        <PrivateRoute path="/profile" component={Profile} />
         <Route exact path="/create" component={Create} />
         <Route exact path="/create/:id" component={Create} />
         <Route exact path="/discover" component={Discover} />
