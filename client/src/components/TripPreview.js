@@ -1,20 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { MapContext } from "../context/MapContext";
+import axios from "axios";
 import "./styles/tripPreviewStyle.css";
 
 export default function TripPreview(props) {
     const history = useHistory();
+    const { setMarkers, markers, setCenter, setZoom } = useContext(MapContext);
     const [backSize, setBackSize] = useState("120%");
     const [liked, setLiked] = useState(false);
+    const [price, setPrice] = useState(0);
+    const [tripImage,setTripImage] = useState(props.trip.tripImage || "https://img.wallpapersafari.com/desktop/1600/900/83/47/uS3HZy.png")
+
+    useEffect(() => {
+        countCash();
+    }, []);
+
+    async function countCash() {
+        let amount = 0;
+        if (props.trip.markers) {
+            props.trip.markers.forEach(marker => {
+                if (marker.expenses) {
+                    marker.expenses.forEach(expense => {
+                        amount = amount + parseFloat(expense.amount);
+                    });
+                }
+            });
+        }
+        setPrice(amount);
+    }
+
+    function hoverTrip() {
+        setCenter({lat: props.trip.markers[0].lat, lng: props.trip.markers[0].lng});
+        setBackSize("130%");
+    }
+
+    function leaveTrip() {
+        // setZoom(2);
+        // setCenter({ lat: 15.178574, lng: -20.814149 });
+        setBackSize("120%");
+    }
 
     return (
         <div id="tripPreviewFlex">
-            <div onClick={() => history.push("/trip/627f3ac3d54ff1bd97791dcb")} id="tripPreview" onMouseEnter={() => setBackSize("130%")} onMouseLeave={() => setBackSize("120%")} style={{ backgroundImage: "url(https://wallpapercave.com/wp/rI3JaNl.jpg)", backgroundSize: backSize }}>
+            <div onClick={() => history.push("/trip/627f3ac3d54ff1bd97791dcb")} id="tripPreview" onMouseEnter={() => hoverTrip("130%")} onMouseLeave={() => leaveTrip()} style={{ backgroundImage: `url(${tripImage})`, backgroundSize: backSize }}>
                 <div className="previewTitle">
-                    Tahiti
+                    {props.trip.title}
                 </div>
                 <div className="previewPrice">
-                    From $625
+                    From ${price}
                 </div>
 
 

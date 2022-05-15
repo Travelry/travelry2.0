@@ -11,6 +11,9 @@ export default function ProfileTripPreview(props) {
 
     useEffect(() => {
         countCash();
+        if(props.trip.tripImage && props.trip.markers.length > 0) {
+            console.log(props.trip._id);
+        }
     }, []);
 
     async function countCash() {
@@ -24,7 +27,6 @@ export default function ProfileTripPreview(props) {
                 }
             });
         }
-        console.log(amount)
         setPrice(amount);
     }
 

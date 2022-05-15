@@ -6,8 +6,7 @@ import { MapContext } from "../context/MapContext";
 import "./styles/mapStyle.css";
 
 export default function Map() {
-    const { scriptLoaded, markers, setScriptLoaded, center, setCenter } = useContext(MapContext);
-    const [zoom, setZoom] = useState(2);
+    const { scriptLoaded, markers, setScriptLoaded, center, setCenter, zoom, setZoom } = useContext(MapContext);
     const [map, setMap] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const history = useHistory();
@@ -22,7 +21,7 @@ export default function Map() {
         fullscreenControl: false,
         mapTypeControl: false,
         streetViewControl: false,
-        minZoom: 2
+        minZoom: zoom
     };
 
     useEffect(() => {
@@ -37,21 +36,32 @@ export default function Map() {
 
     useEffect(() => {
         if (markers.length > 0) {
-            setCenter({ lat: markers[markers.length-1].lat, lng: markers[markers.length-1].lng, });
-            setZoom(5);
+            setCenter({ lat: markers[markers.length - 1].lat, lng: markers[markers.length - 1].lng, });
         } else {
             setCenter({ lat: 15.178574, lng: -20.814149 });
-            setZoom(2);
         }
     }, [markers]);
 
     useEffect(() => {
-        // if(center) {
-        //     setZoom(5)
-        // } else {
-        //     setZoom(2);
-        // }
+        if (center.lat === 15.178574) {
+            setZoom(2)
+        } else {
+            setZoom(3);
+        }
     }, [center]);
+
+    // useEffect(() => {
+    //     if(zoomOn) {
+    //         setZoom(3)
+    //     } else {
+    //         setZoom(2);
+    //     }
+    // }, [zoom]);
+
+    // useEffect(() => {
+    //     setZoomOn(false)
+    // }, []);
+
 
     function newPlace(lat, lng) {
         setCenter({ lat: lat, lng: lng, });
@@ -71,7 +81,7 @@ export default function Map() {
                 {markers.map(marker => {
                     return <Marker
                         key={marker.lat}
-                        onClick={() => newPlace(marker.lat, marker.lng)}
+                        onClick={() => marker.id ? history.push("/trip/" + marker.id) : null}
                         position={{
                             lat: marker.lat,
                             lng: marker.lng,

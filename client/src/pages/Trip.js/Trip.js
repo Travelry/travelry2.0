@@ -15,7 +15,7 @@ export default function Trip(props) {
     const history = useHistory();
     const { markers, setMarkers, tripId, setTripId } = useContext(MapContext);
     const [trip, setTrip] = useState({});
-    const [sharing, setSharing] = useState(true);
+    const [sharing, setSharing] = useState(false);
 
     useEffect(() => {
         getTripData(props.match.params.id);

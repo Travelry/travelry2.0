@@ -13,6 +13,10 @@
     margin-bottom: 25px;
 }
 
+#discoverTrips {
+    padding-bottom: 40px;
+}
+
 #fadeBlock {
     position: fixed;
     z-index: 2;
