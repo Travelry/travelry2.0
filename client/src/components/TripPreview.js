@@ -43,7 +43,7 @@ export default function TripPreview(props) {
 
     return (
         <div id="tripPreviewFlex">
-            <div onClick={() => history.push("/trip/627f3ac3d54ff1bd97791dcb")} id="tripPreview" onMouseEnter={() => hoverTrip("130%")} onMouseLeave={() => leaveTrip()} style={{ backgroundImage: `url(${tripImage})`, backgroundSize: backSize }}>
+            <div onClick={() => history.push("/trip/" + props.trip._id)} id="tripPreview" onMouseEnter={() => hoverTrip("130%")} onMouseLeave={() => leaveTrip()} style={{ backgroundImage: `url(${tripImage})`, backgroundSize: backSize }}>
                 <div className="previewTitle">
                     {props.trip.title}
                 </div>

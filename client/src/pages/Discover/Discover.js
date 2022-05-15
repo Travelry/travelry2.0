@@ -31,8 +31,9 @@ export default function Discover() {
             if(index === topTrips.length -1) {
                 setMarkers(tripMarkers);
                 setTimeout(() => {
-                    setZoom(2);
-                }, 500);
+                    // setZoom(2);
+                    setCenter({ lat: 15.178574, lng: -20.814149 });
+                }, 200);
             }
         } catch (err) {
             console.log(err);

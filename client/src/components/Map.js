@@ -50,25 +50,6 @@ export default function Map() {
         }
     }, [center]);
 
-    // useEffect(() => {
-    //     if(zoomOn) {
-    //         setZoom(3)
-    //     } else {
-    //         setZoom(2);
-    //     }
-    // }, [zoom]);
-
-    // useEffect(() => {
-    //     setZoomOn(false)
-    // }, []);
-
-
-    function newPlace(lat, lng) {
-        setCenter({ lat: lat, lng: lng, });
-        setZoom(5);
-        history.push("/home/turkey");
-    }
-
     return loaded ? (
         <div id="mapContainer">
             <GoogleMap
@@ -76,8 +57,7 @@ export default function Map() {
                 center={center}
                 minZoom={4}
                 zoom={zoom}
-                options={defaultMapOptions}
-            >
+                options={defaultMapOptions}>
                 {markers.map(marker => {
                     return <Marker
                         key={marker.lat}
@@ -88,7 +68,6 @@ export default function Map() {
                         }}
                     />
                 })}
-
             </GoogleMap>
         </div>
     ) : <></>
