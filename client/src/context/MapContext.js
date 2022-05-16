@@ -10,10 +10,11 @@ export default ({ children }) => {
     const [newDest, setNewDest] = useState(false);
     const [center, setCenter] = useState({ lat: 15.178574, lng: -20.814149 });
     const [zoom, setZoom] = useState(2);
+    const [zoomOn, setZoomOn] = useState(true);
 
 
     return (
-        <MapContext.Provider value={{ scriptLoaded, setScriptLoaded, markers, setMarkers, tripId, setTripId, valueChanged, setValueChanged, newDest, setNewDest, center, setCenter, zoom, setZoom }}>
+        <MapContext.Provider value={{ scriptLoaded, setScriptLoaded, markers, setMarkers, tripId, setTripId, valueChanged, setValueChanged, newDest, setNewDest, center, setCenter, zoom, setZoom, zoomOn, setZoomOn }}>
             {children}
         </MapContext.Provider>
     )

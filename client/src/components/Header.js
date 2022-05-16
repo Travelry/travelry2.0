@@ -64,8 +64,8 @@ export default function Header(props) {
             </div>
             <div id="headerBtns">
                 {isAuthenticated ?
-                    <div id="loginHeader" onClick={() => logOutHandler(true)}>
-                        logout
+                    <div id="loginHeader" onClick={() => history.push("/create")}>
+                        create
                     </div>
                     :
                     <>

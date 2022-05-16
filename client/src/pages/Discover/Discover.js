@@ -9,8 +9,8 @@ import { MapContext } from "../../context/MapContext";
 import "./discoverStyle.css";
 
 export default function Discover() {
-    const { markers, setMarkers, setZoom, setCenter } = useContext(MapContext);
-    const topTrips = ["6281826645af21de4e1e4af6", "627f43c3d54ff1bd97791dd7", "627f437cd54ff1bd97791dd6", "627f42cbd54ff1bd97791dd5", "627f42bed54ff1bd97791dd3", "627f4298d54ff1bd97791dd2", "627f4238d54ff1bd97791dce", "627f40c3d54ff1bd97791dcd", "627f3bb6d54ff1bd97791dcc"];
+    const { markers, setMarkers, setZoom, setCenter, zoomOn, setZoomOn} = useContext(MapContext);
+    const topTrips = ["62818a379a3bdee8ea66c79e", "62818bdf9a3bdee8ea66c7b5", "6281826645af21de4e1e4af6", "628191759a3bdee8ea66c995", "6281958f9a3bdee8ea66ca50"];
     const [tripData, setTripData] = useState([]);
     const tripMarkers = [];
 
@@ -26,12 +26,11 @@ export default function Discover() {
             const res = await axios.get("/trip/trip-info/" + id);
             if (res.data.trip) {
                 tripData.push(res.data.trip);
-                tripMarkers.push({lat: res.data.trip.markers[0].lat, lng: res.data.trip.markers[0].lng, id: res.data.trip._id})
+                tripMarkers.push({lat: res.data.trip.markers[res.data.trip.markers.length-1].lat, lng: res.data.trip.markers[res.data.trip.markers.length-1].lng, id: res.data.trip._id})
             }
             if(index === topTrips.length -1) {
                 setMarkers(tripMarkers);
                 setTimeout(() => {
-                    // setZoom(2);
                     setCenter({ lat: 15.178574, lng: -20.814149 });
                 }, 200);
             }
@@ -45,7 +44,7 @@ export default function Discover() {
             <Header signup={null} cancelOther={() => null} />
             <Sidebar currentPage="discover" />
             <div id="homeArea">
-                <div id="contentBody" onMouseLeave={() => setZoom(2)}>
+                <div id="contentBody" onMouseLeave={() => setCenter({ lat: 15.178574, lng: -20.814149 })}>
                     <div id="discoverTitleFlex">
                         <div id="discoverTitle">
                             Discover Trips

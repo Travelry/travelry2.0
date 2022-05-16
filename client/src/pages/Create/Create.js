@@ -98,6 +98,7 @@ export default function Create(props) {
 
   function changeTripImage(e) {
     setImageError(false);
+    setSaved(false);
     setTrip({ ...trip, tripImage: e.target.value })
   }
 
@@ -105,7 +106,9 @@ export default function Create(props) {
     setMarkers([]);
     if (props.match.params.id) {
       getTripData(props.match.params.id.slice(0, 24));
-      setNewTrip(false);
+      if (props.match.params.id.length === 24) {
+        setNewTrip(false);
+      }
     }
   }, [props.match.params.id]);
 

@@ -6,7 +6,7 @@ import "./styles/tripPreviewStyle.css";
 
 export default function TripPreview(props) {
     const history = useHistory();
-    const { setMarkers, markers, setCenter, setZoom } = useContext(MapContext);
+    const { setMarkers, markers, setCenter, setZoom, setZoomOn } = useContext(MapContext);
     const [backSize, setBackSize] = useState("120%");
     const [liked, setLiked] = useState(false);
     const [price, setPrice] = useState(0);
@@ -31,7 +31,8 @@ export default function TripPreview(props) {
     }
 
     function hoverTrip() {
-        setCenter({lat: props.trip.markers[0].lat, lng: props.trip.markers[0].lng});
+        // setZoomOn(false);
+        setCenter({lat: props.trip.markers[props.trip.markers.length-1].lat, lng: props.trip.markers[props.trip.markers.length-1].lng});
         setBackSize("130%");
     }
 

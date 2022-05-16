@@ -6,7 +6,7 @@ import { MapContext } from "../context/MapContext";
 import "./styles/mapStyle.css";
 
 export default function Map() {
-    const { scriptLoaded, markers, setScriptLoaded, center, setCenter, zoom, setZoom } = useContext(MapContext);
+    const { scriptLoaded, markers, setScriptLoaded, center, setCenter, zoom, setZoom, zoomOn, setZoomOn } = useContext(MapContext);
     const [map, setMap] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const history = useHistory();
@@ -45,8 +45,11 @@ export default function Map() {
     useEffect(() => {
         if (center.lat === 15.178574) {
             setZoom(2)
+        } else if(zoomOn) {
+            setZoom(5);
         } else {
-            setZoom(3);
+            setZoom(2);
+            setZoomOn(true);
         }
     }, [center]);
 
