@@ -10,7 +10,7 @@ import "./discoverStyle.css";
 
 export default function Discover() {
     const { markers, setMarkers, setZoom, setCenter, zoomOn, setZoomOn} = useContext(MapContext);
-    const topTrips = ["62818a379a3bdee8ea66c79e", "62818bdf9a3bdee8ea66c7b5", "6281826645af21de4e1e4af6", "628191759a3bdee8ea66c995", "6281958f9a3bdee8ea66ca50"];
+    const topTrips = ["636051999306102a90eb6b4c", "636052029306102a90eb6b57", "6360524a9306102a90eb6b61", "636052ab9306102a90eb6b6d", "636052f79306102a90eb6b7d", "636053b39306102a90eb6b8d"];
     const [tripData, setTripData] = useState([]);
     const tripMarkers = [];
 
