@@ -42,11 +42,12 @@ function AutoSearch() {
         const query = addressObject.formatted_address;
         updateQuery(query);
         console.log(addressObject);
-        if(addressObject.geometry) {
-            const lat = (addressObject.geometry.viewport.Ab.h + addressObject.geometry.viewport.Ab.j) / 2;
-            const lng = (addressObject.geometry.viewport.Va.h + addressObject.geometry.viewport.Va.j) / 2;
-            console.log(lat);
+        if (addressObject.geometry) {
+            console.log(addressObject.geometry);
+            const lng = (addressObject.geometry.viewport.Ha.hi + addressObject.geometry.viewport.Ha.lo) / 2;
+            const lat = (addressObject.geometry.viewport.cb.hi + addressObject.geometry.viewport.cb.lo) / 2;
             console.log(lng);
+            console.log(lat);
             setMarkers(markers => [...markers, { lat, lng, address: addressObject.formatted_address }]);
             setNewDest(true);
         }
